@@ -18,6 +18,7 @@ router.post('/users/signup/local', (req, res, next) => {
     return User.create({local: {newUser}})
   })
   .then(result => {
+    console.log(result);
     return res.status(201).location(`/users/${result.id}`).json(result);
   })
   .catch(err => {
