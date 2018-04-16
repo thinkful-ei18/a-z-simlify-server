@@ -9,14 +9,14 @@ const userSchema = new mongoose.Schema(
     username: {type: String, unique: true},
     password: {type: String},
     created: {type: Date, default: Date.Now},
-    words: {type: Array}
+    words: {type: Array, default: null}
   },
     google: {
-      firstname: {type: String},
-      googleId: {type: String},
-      password: {type: String},
+      firstname: {type: String, default: null},
+      googleId: {type: String, default: null},
+      password: {type: String, default: null},
       created: {type: Date, default: Date.Now},
-      words: {type: Array}
+      words: {type: Array, default: null}
     }
   }
 );
