@@ -27,7 +27,7 @@ userSchema.set('toObject', {
     delete ret._id;
     delete ret.__v;
     delete ret.password;
-  }
+}
 });
 
 userSchema.methods.validatePassword = function (password) {
