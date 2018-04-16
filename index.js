@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
@@ -22,6 +23,8 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+app.use(bodyParser.json());
 
 app.use('/api', usersRouter);
 
