@@ -1,5 +1,3 @@
-import { Collection } from 'mongoose';
-
 'use strict';
 
 const mongoose = require('mongoose');
