@@ -26,7 +26,7 @@ app.use(
 
 app.use(bodyParser.json());
 
-app.use('/api', usersRouter);
+app.use('', usersRouter);
 
 app.use(function (req, res, next) {
   // console.log('404 error ran');
