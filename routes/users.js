@@ -15,7 +15,7 @@ router.post('/users/signup/local', (req, res, next) => {
       username: username,
       password: digest,
     }
-    return User.create({local: {newUser}})
+    return User.create({local: newUser})
   })
   .then(result => {
     console.log(result);
