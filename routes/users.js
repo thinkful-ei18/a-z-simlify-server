@@ -10,13 +10,12 @@ router.post('/users/signup/local', (req, res, next) => {
 
   return User.hashPassword(password)
   .then(digest => {
-    return User.create({
-      local: {
-        firstname,
-        username,
-        password: digest
-      }
-    });
+    const newUser = {
+      firstname: firstname,
+      username: username,
+      password: digest,
+    }
+    return User.create({local: {newUser}})
   })
   .then(result => {
     return res.status(201).location(`/users/${result.id}`).json(result);
@@ -27,7 +26,7 @@ router.post('/users/signup/local', (req, res, next) => {
       err.status = 400;
     }
     next(err);
-  })
+  });
 });
 
 module.exports = router;
