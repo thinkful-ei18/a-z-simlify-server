@@ -9,15 +9,16 @@ const userSchema = new mongoose.Schema(
     username: {type: String, unique: true},
     password: {type: String},
     created: {type: Date, default: Date.Now},
-    words: {type: Array, default: null}
+    words: {type: Object, default: null},
+    lastWord: {type: Object, default: null}
   },
-    google: {
-      firstname: {type: String, default: null},
-      googleId: {type: String, default: null},
-      password: {type: String, default: null},
-      created: {type: Date, default: Date.Now},
-      words: {type: Array, default: null}
-    }
+  google: {
+    firstname: {type: String, default: null},
+    googleId: {type: String, default: null},
+    password: {type: String, default: null},
+    created: {type: Date, default: Date.Now},
+    words: {type: Object, default: null}
+  }
   }
 );
 
@@ -27,7 +28,7 @@ userSchema.set('toObject', {
     delete ret._id;
     delete ret.__v;
     delete ret.password;
-}
+  }
 });
 
 userSchema.methods.validatePassword = function (password) {
