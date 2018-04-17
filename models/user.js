@@ -10,15 +10,13 @@ const userSchema = new mongoose.Schema(
     username: {type: String, unique: true},
     password: {type: String},
     created: {type: Date, default: Date.Now},
-    words: {type: Object, default: questions},
+    words: {type: Array, default: questions},
     lastWord: {type: Object, default: null}
   },
   google: {
     firstname: {type: String, default: null},
     googleId: {type: String, default: null},
     password: {type: String, default: null},
-    created: {type: Date, default: Date.Now},
-    words: {type: Object, default: null}
   }
   }
 );
