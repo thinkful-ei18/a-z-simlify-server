@@ -18,3 +18,5 @@ router.post('questions', (req, res, next) => {
     return res.json('Sorry, try again!');
   }
 });
+
+module.exports = router;
