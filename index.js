@@ -28,10 +28,11 @@ app.use(
 );
 
 app.use(bodyParser.json());
-passport.use(localStrategy);
 
 app.use('', usersRouter);
 app.use('', authRouter);
+
+passport.use(localStrategy);
 
 app.use(function (req, res, next) {
   // console.log('404 error ran');
