@@ -2,6 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
+
+router.get('/generate', (req, res, next) => {
+   let {username } = req.body;
+
+  User.findOne({});
+});
 
 router.get('/questions', (req, res, next) => {
   return res.json('What does ♪ Sul Sul mean?');
