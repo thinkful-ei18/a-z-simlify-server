@@ -75,7 +75,7 @@ function size(lst){
   }
   else
     counter++;
-  while (!(currNode.next == null)) {
+  while (!(currNode.next === null)) {
     counter++;
     currNode = currNode.next;
   }
