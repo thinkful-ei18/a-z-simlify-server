@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const {JWT_SECRET, JWT_EXPIRY } = require('../config');
 
 const localAuth = passport.authenticate('local', {session: false, failWithError: true});
 
