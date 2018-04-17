@@ -28,7 +28,6 @@ app.use(
 );
 
 app.use(bodyParser.json());
-
 passport.use(localStrategy);
 
 app.use('', usersRouter);
