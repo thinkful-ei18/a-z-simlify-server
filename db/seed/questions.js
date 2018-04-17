@@ -1,6 +1,6 @@
 'use strict';
 
-const words = [
+const questions = [
   {question: 'Sul Sul', answer: 'Hello'},
   {question: 'Dag Dag', answer: 'Goodbye'},
   {question: 'Hooba Noobie', answer: 'What\'s up'},
@@ -14,4 +14,4 @@ const words = [
   {question: 'Kooj', answer: 'Sweet'},
 ];
 
-module.exports = words;
+module.exports = questions;
