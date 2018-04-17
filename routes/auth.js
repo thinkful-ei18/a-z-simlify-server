@@ -7,7 +7,8 @@ const passport = require('passport');
 const options = {session: false, failWithError: true};
 const localAuth = passport.authenticate('local', options);
 
-router.post('/login', (req, res) => {
+router.post('/login', localAuth, function (req, res) {
+  console.log(req.user);
   return res.json(req.user);
 });
 
