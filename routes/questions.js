@@ -16,14 +16,14 @@ router.get('/generate', (req, res, next) => {
   const username = getUsername(req);
   console.log('found user:', username);
 
-  // User.findOne({local: username})
-  //   .then(res => {
-  //     if (!res) {
-  //       throw new Error('Could not find user!');
-  //     }
-  //     return res.json(res);
-  //   })
-  //   .catch(err => next(err));
+  User.findOne({'local.username': username})
+    .then(user => {
+      if (!user) {
+        throw new Error('Could not find user!');
+      }
+      return res.json(user.local.words);
+    })
+    .catch(err => next(err));
 
 
 });
