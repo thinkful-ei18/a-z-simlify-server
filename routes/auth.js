@@ -8,7 +8,7 @@ const options = {session: false, failWithError: true};
 const localAuth = passport.authenticate('local', options);
 
 router.post('/login', localAuth, function (req, res) {
-  console.log(req.user);
+  console.info(req.user.username, 'successfully logged in.');
   return res.json(req.user);
 });
 
