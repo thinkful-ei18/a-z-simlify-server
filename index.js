@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const localStrategy = require('./passport/local');
@@ -29,6 +30,10 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 app.use('', usersRouter);
 app.use('', authRouter);
