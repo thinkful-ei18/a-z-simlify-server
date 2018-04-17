@@ -16,6 +16,28 @@ router.post('/signup/local', (req, res, next) => {
     return next(err);
   }
 
+  const stringFields = ['firstname', 'username', 'password'];
+  const nonStringField = stringFields.find(
+    field => field in req.body && typeof req.body[field] !== 'string'
+  );
+
+  if (nonStringField) {
+    const err = new Error(`Field: '${nonStringField}' must be type String`);
+    err.status = 422;
+    return next(err);
+  }
+
+  const explicityTrimmedFields = ['firstname', 'username', 'password'];
+  const nonTrimmedField = explicityTrimmedFields.find(
+    field => req.body[field].trim() !== req.body[field]
+  );
+
+  if (nonTrimmedField) {
+    const err = new Error(`Field: '${nonTrimmedField}' cannot start or end with whitespace`);
+    err.status = 422;
+    return next(err);
+  }
+
 
   let { firstname, username, password } = req.body;
 
