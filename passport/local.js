@@ -15,7 +15,9 @@ const localStrategy = new LocalStrategy((username, password, done) => {
           location: 'username'
         });
       }
-      const isValid = User.validatePassword(password);
+      return User.validatePassword(password);
+    })
+    .then(isValid => {
       if (!isValid) {
         return Promise.reject({
           reason: 'LoginError',
