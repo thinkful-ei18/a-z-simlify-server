@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 const localStrategy = new LocalStrategy((username, password, done) => {
   let user;
-  User.findOne({local: username})
+  User.findOne({'local.username': username})
     .then(results => {
       user = results;
       if(!user) {
@@ -15,7 +15,7 @@ const localStrategy = new LocalStrategy((username, password, done) => {
           location: 'username'
         });
       }
-      return User.validatePassword(password);
+      return user.validatePassword(password);
     })
     .then(isValid => {
       if (!isValid) {
