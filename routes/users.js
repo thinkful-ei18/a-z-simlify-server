@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-router.post('signup/local', (req, res, next) => {
+router.post('/local', (req, res, next) => {
 
   /* INPUT VALIDATION */
   const requiredFields = ['firstname','username', 'password'];

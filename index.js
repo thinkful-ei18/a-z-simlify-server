@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.use('/', usersRouter);
+app.use('/signup', usersRouter);
 app.use('/auth', authRouter);
 
 passport.use(localStrategy);
