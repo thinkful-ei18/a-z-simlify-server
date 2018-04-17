@@ -10,3 +10,5 @@ const localAuth = passport.authenticate('local', options);
 router.post('/login', (req, res) => {
   return res.json(req.user);
 });
+
+module.exports = router;
