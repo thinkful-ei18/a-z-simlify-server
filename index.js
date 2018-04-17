@@ -5,12 +5,15 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const localStrategy = require('./passport/local');
 
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 const app = express();
 
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/users');
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -26,7 +29,10 @@ app.use(
 
 app.use(bodyParser.json());
 
+passport.use(localStrategy);
+
 app.use('', usersRouter);
+app.use('', authRouter);
 
 app.use(function (req, res, next) {
   // console.log('404 error ran');
