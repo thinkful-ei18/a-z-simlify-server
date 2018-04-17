@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
 
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
