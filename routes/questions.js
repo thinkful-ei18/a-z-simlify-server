@@ -5,16 +5,20 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/generate', (req, res, next) => {
-   let {username } = req.body;
+  let {username } = req.body;
 
-  User.findOne({});
+  User.findOne({local: username})
+    .then(res => {
+      return res.json(res);
+    })
+    .catch(err => next(err));
 });
 
-router.get('/questions', (req, res, next) => {
+router.get('/question', (req, res, next) => {
   return res.json('What does ♪ Sul Sul mean?');
 });
 
-router.post('/questions', (req, res, next) => {
+router.post('/answer', (req, res, next) => {
   let { answer } = req.body;
 
   if (answer === 'Hello') {
