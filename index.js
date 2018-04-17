@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('', usersRouter);
-app.use('auth', authRouter);
+app.use('/auth', authRouter);
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
