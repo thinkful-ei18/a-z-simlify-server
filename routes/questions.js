@@ -3,15 +3,29 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwtDecode = require('jwt-decode');
+
+function getUsername (request) {
+  const authToken = request.headers.authorization.split(' ')[1];
+  const currentUser = jwtDecode(authToken).user.local.username;
+  return currentUser;
+}
 
 router.get('/generate', (req, res, next) => {
-  let {username } = req.body;
 
-  User.findOne({local: username})
-    .then(res => {
-      return res.json(res);
-    })
-    .catch(err => next(err));
+  const username = getUsername(req);
+  console.log('found user:', username);
+
+  // User.findOne({local: username})
+  //   .then(res => {
+  //     if (!res) {
+  //       throw new Error('Could not find user!');
+  //     }
+  //     return res.json(res);
+  //   })
+  //   .catch(err => next(err));
+
+
 });
 
 router.get('/question', (req, res, next) => {
