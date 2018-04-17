@@ -69,6 +69,7 @@ router.post('/signup/local', (req, res, next) => {
   /* END OF INPUT VALIDATION */
 
   let { firstname, username, password } = req.body;
+  firstname = firstname.trim();
 
   return User.hashPassword(password)
     .then(digest => {
