@@ -36,6 +36,8 @@ app.use('', authRouter);
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
+app.use(passport.authenticate('jwt', { session: false, failWithError: true })); // protected endpoints below!
+
 app.use(function (req, res, next) {
   // console.log('404 error ran');
   const err = new Error('Not Found');
