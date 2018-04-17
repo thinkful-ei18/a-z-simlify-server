@@ -38,13 +38,13 @@ app.get('/', function (req, res) {
 
 app.use('/signup', usersRouter);
 app.use('/auth', authRouter);
+app.use('/simlish', questionsRouter);
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use(passport.authenticate('jwt', { session: false, failWithError: true })); // protected endpoints below!
 
-app.use('/', questionsRouter);
 
 app.use(function (req, res, next) {
   // console.log('404 error ran');
