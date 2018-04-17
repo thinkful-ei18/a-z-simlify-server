@@ -6,6 +6,17 @@ const User = require('../models/user');
 
 router.post('/signup/local', (req, res, next) => {
 
+  /* INPUT VALIDATION */
+  const requiredFields = ['firstname','username', 'password'];
+  const missingField = requiredFields.find(field => !(field in req.body));
+
+  if (missingField) {
+    const err = new Error(`Missing '${missingField}' in request body`);
+    err.status = 422;
+    return next(err);
+  }
+
+
   let { firstname, username, password } = req.body;
 
   return User.hashPassword(password)
