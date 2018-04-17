@@ -3,13 +3,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('questions', (req, res, next) => {
-  return res.json('♪ Sul Sul')
-    .catch(err => next(err));
+router.get('/questions', (req, res, next) => {
+  return res.json('What does ♪ Sul Sul mean?');
 });
 
-router.post('questions', (req, res, next) => {
-
+router.post('/questions', (req, res, next) => {
   let { answer } = req.body;
 
   if (answer === 'Hello') {
