@@ -34,6 +34,7 @@ app.use('', usersRouter);
 app.use('', authRouter);
 
 passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 app.use(function (req, res, next) {
   // console.log('404 error ran');
