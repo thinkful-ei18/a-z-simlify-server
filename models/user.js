@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const questions = require('../db/seed/questions');
 
 const userSchema = new mongoose.Schema(
   { local: {
@@ -9,7 +10,7 @@ const userSchema = new mongoose.Schema(
     username: {type: String, unique: true},
     password: {type: String},
     created: {type: Date, default: Date.Now},
-    words: {type: Object, default: null},
+    words: {type: Object, default: questions},
     lastWord: {type: Object, default: null}
   },
   google: {
