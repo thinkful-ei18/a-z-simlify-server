@@ -50,6 +50,7 @@ router.get('/generate', (req, res, next) => {
 })
 
 router.get('/question', (req, res, next) => {
+  // todo : find head return head
   return res.json('What does ♪ Sul Sul mean?')
 })
 
@@ -60,6 +61,9 @@ router.post('/answer', (req, res, next) => {
 
   User.findOne({ 'local.username': username })
     .then(user => {
+      // todo: move wordpair -> lastword
+      // todo: selections of feedbacks
+      // todo: increment total Attempt, (inCorrect if answer is incorrect).
       const words = user.local.words
       const currentWord = words.head
       let mIndex = words.head.M
@@ -82,5 +86,8 @@ router.post('/answer', (req, res, next) => {
       next(err)
     })
 })
+//todo:
+// router.get('/report')
+// res.json(result)
 
 module.exports = router

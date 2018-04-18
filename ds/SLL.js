@@ -5,6 +5,8 @@ class Word {
     this.answer = word.answer
     this.M = word.M
     this.next = next
+    this.totalAttempt = 0
+    this.inCorrect = 0
   }
 }
 
@@ -33,7 +35,9 @@ function createWord(word, next = null) {
     question: word.question,
     answer: word.answer,
     M: word.M,
-    next: next
+    next: next,
+    totalAttempt: word.totalAttempt,
+    inCorrect: word.inCorrect
   }
 }
 
