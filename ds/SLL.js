@@ -79,11 +79,6 @@ function insertLast(words, word) {
   node.next = createWord(word);
 }
 
-function get() {
-  return this.head; // return first question/answer pair
-}
-
-
 module.exports = {SingleLinkedList, insertAt, createWord, insertLast};
 
 const words = [
