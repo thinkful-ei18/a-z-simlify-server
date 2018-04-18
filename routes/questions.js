@@ -21,6 +21,7 @@ router.get('/generate', (req, res, next) => {
     .then(user => {
       user.local.words = sll;
       questions.forEach(word => sll.insertFirst(word));
+      // add math.random to grab random group of words from the array
       return User.findOneAndUpdate({'local.username': username}, {'local.words': user.local.words}, {new: true});
     })
     .then(result => {
