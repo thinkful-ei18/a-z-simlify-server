@@ -17,7 +17,7 @@ class SingleLinkedList {
     this.head = new Word (word, this.head);
   }
 
-  insertAt(word, M) {
+  pushback(word, M) {
     if (M <= 0) {
       return null;
     }
@@ -26,6 +26,24 @@ class SingleLinkedList {
     const newWord = new Word(word, null);
     newWord.next = foundWord.next;
     foundWord.next = newWord;
+    this.head = this.head.next;
+  }
+
+  findWord(word) {
+    let counter = 10;
+    let currentWord = this.head;
+    if (!this.head) {
+      return null;
+    }
+    while(currentWord.question !== word.question) {
+      if (counter <= 0) {
+        return null;
+      } else {
+        counter--;
+        currentWord = currentWord.next;
+      }
+    }
+    return currentWord;
   }
 
 }
