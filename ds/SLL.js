@@ -29,7 +29,8 @@ class SingleLinkedList {
 
 }
 
-function createWord(word, next) {
+function createWord(word, next=null) {
+
   return {
     question: word.question,
     answer: word.answer,
@@ -43,7 +44,7 @@ function insertAt(words, word, M) {
   let counter = 0;
 
   if (M > 9) {
-    M = 10;
+    insertLast(words, word);
   }
 
   while (counter < M) {
@@ -68,46 +69,58 @@ function insertAt(words, word, M) {
   temp.next = null;
 }
 
+function insertLast(words, word) {
+  let node = words.head;
+
+  while (node.next !== null) {
+    node = node.next;
+  }
+
+  node.next = createWord(word);
+}
+
 function get() {
   return this.head; // return first question/answer pair
 }
 
 
-module.exports = {SingleLinkedList, insertAt, createWord};
+module.exports = {SingleLinkedList, insertAt, createWord, insertLast};
 
-// const words = [
-//   {question: 'Sul Sul', answer: 'Hello', M:1},
-//   {question: 'Hooba Noobie', answer: 'What\'s up', M:1},
-//   {question: 'Dag Dag', answer: 'Goodbye', M:1},
-//   {question: 'Litzergam', answer: 'Thank you', M:1},
-//   {question: 'Geelfrob', answer: 'See you soon', M:1},
-//   {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
-//   {question: 'Boobasnot', answer: 'I don\'t like you', M:1},
-//   {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
-//   {question: 'Renato', answer: 'Go away', M:19},
-//   {question: 'Jowlenin', answer: 'Interesting', M:1},
-//   {question: 'Kooj', answer: 'Sweet', M:11},
-// ];
+const words = [
+  {question: 'Sul Sul', answer: 'Hello', M:1},
+  {question: 'Hooba Noobie', answer: 'What\'s up', M:1},
+  {question: 'Dag Dag', answer: 'Goodbye', M:1},
+  {question: 'Litzergam', answer: 'Thank you', M:1},
+  {question: 'Geelfrob', answer: 'See you soon', M:1},
+  {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
+  {question: 'Boobasnot', answer: 'I don\'t like you', M:1},
+  {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
+  {question: 'Renato', answer: 'Go away', M:19},
+  {question: 'Jowlenin', answer: 'Interesting', M:1},
+  {question: 'Kooj', answer: 'Sweet', M:1},
+];
 
-// function main() {
-//   let sll = new SingleLinkedList();
-//   words.map(word => sll.insertFirst(word));
+function main() {
+  let sll = new SingleLinkedList();
+  words.map(word => sll.insertFirst(word));
 
-//   sll.print();
-//   console.log('*********************************************');
-//   insertAt(sll, sll.head, sll.head.M);
-//   // console.log(sll);
-//   sll.print();
-//   // // console.log(sll.get());
-//   // sll.insertAt(sll.get(), sll.get().M);
-//   // sll.print();
-//   // console.log('*********************************************');
-//   // sll.insertAt(sll.get(), sll.get().M);
-//   // sll.print();
-//   // console.log('*********************************************');
-//   // sll.insertAt(sll.get(), sll.get().M);
-//   // sll.print();
+  sll.print();
+  console.log('*********************************************');
+  insertLast(sll, words[3]);
+  sll.print();
+  // insertAt(sll, sll.head, sll.head.M);
+  // console.log(sll);
+  // sll.print();
+  // // console.log(sll.get());
+  // sll.insertAt(sll.get(), sll.get().M);
+  // sll.print();
+  // console.log('*********************************************');
+  // sll.insertAt(sll.get(), sll.get().M);
+  // sll.print();
+  // console.log('*********************************************');
+  // sll.insertAt(sll.get(), sll.get().M);
+  // sll.print();
 
-//   // console.log(sll);
-// }
-// main();
+  // console.log(sll);
+}
+main();
