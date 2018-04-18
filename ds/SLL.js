@@ -18,6 +18,8 @@ class SingleLinkedList {
   }
 
   insertAt(word, M) {
+    // refactor for scalability
+
     let temp = this.head;
     let counter = 0;
 
@@ -40,38 +42,6 @@ class SingleLinkedList {
 
   get() {
     return this.head; // return first question/answer pair
-  }
-
-  push(word, M) {
-    if (M <= 0) {
-      return null;
-    }
-    console.log('M:', word.M);
-    const foundWord = this.find(M - 1);
-    console.log('foundword:',foundWord);
-
-    const newWord = new Word(word, null);
-    newWord.next = foundWord.next;
-    foundWord.next = newWord;
-    this.head = this.head.next;
-  }
-
-  find(word) {
-    let counter = 10;
-    let currentWord = this.head;
-
-    if (!this.head) {
-      return null;
-    }
-    while(currentWord.question !== word.question) {
-      if (counter <= 0 || currentWord.next === null) {
-        return null;
-      } else {
-        counter--;
-        currentWord = currentWord.next;
-      }
-    }
-    return currentWord;
   }
 
   print() {
@@ -108,8 +78,6 @@ function main() {
   sll.print();
   console.log('*********************************************');
   // console.log(sll.get());
-  // console.log(sll.find(words[7]));
-  // sll.push(sll.get(), sll.get().M);
   sll.insertAt(sll.get(), sll.get().M);
   // console.log(sll);
   sll.print();
