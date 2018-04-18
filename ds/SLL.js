@@ -61,7 +61,7 @@ function insertAt(words, word, M) {
   counter = 0;
   temp = words.head;
 
-  while(counter < 10) {
+  while(counter < 9) {
     temp = temp.next;
     counter++;
   }
