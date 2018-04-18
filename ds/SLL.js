@@ -17,26 +17,27 @@ class SingleLinkedList {
     this.head = new Word (word, this.head);
   }
 
-  pushback(word, M) {
+  push(word, M) {
     if (M <= 0) {
       return null;
     }
 
-    const foundWord = this.findWord(M - 1);
+    const foundWord = this.find(M - 1);
     const newWord = new Word(word, null);
     newWord.next = foundWord.next;
     foundWord.next = newWord;
     this.head = this.head.next;
   }
 
-  findWord(word) {
+  find(word) {
     let counter = 10;
     let currentWord = this.head;
+
     if (!this.head) {
       return null;
     }
     while(currentWord.question !== word.question) {
-      if (counter <= 0) {
+      if (counter <= 0 || currentWord.next === null) {
         return null;
       } else {
         counter--;
