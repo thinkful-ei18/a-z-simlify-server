@@ -17,42 +17,6 @@ class SingleLinkedList {
     this.head = new Word (word, this.head);
   }
 
-  insertAt(word, M) {
-    // refactor for scalability
-
-    let temp = this.head;
-    let counter = 0;
-
-    if (M > 9) {
-      M = 10;
-    }
-
-    while (counter < M) {
-      if (temp.next === null) {
-        return null;
-      }
-
-      temp = temp.next;
-      counter++;
-    }
-
-    this.head = this.head.next;
-    temp.next = new Word(word, temp.next);
-
-    counter = 0;
-    temp = this.head;
-
-    while(counter < 10) {
-      temp = temp.next;
-      counter++;
-    }
-    temp.next = null;
-  }
-
-  get() {
-    return this.head; // return first question/answer pair
-  }
-
   print() {
     let current = this.head;
     let pretty = '';
@@ -65,7 +29,51 @@ class SingleLinkedList {
 
 }
 
-module.exports = SingleLinkedList;
+function createWord(word, next) {
+  return {
+    question: word.question,
+    answer: word.answer,
+    M: word.M,
+    next: next};
+}
+
+function insertAt(words, word, M) {
+
+  let temp = words.head;
+  let counter = 0;
+
+  if (M > 9) {
+    M = 10;
+  }
+
+  while (counter < M) {
+    if (temp.next === null) {
+      return null;
+    }
+
+    temp = temp.next;
+    counter++;
+  }
+
+  words.head = words.head.next;
+  temp.next = createWord(word, temp.next);
+
+  counter = 0;
+  temp = words.head;
+
+  while(counter < 10) {
+    temp = temp.next;
+    counter++;
+  }
+  temp.next = null;
+}
+
+function get() {
+  return this.head; // return first question/answer pair
+}
+
+
+module.exports = {SingleLinkedList, insertAt, createWord};
 
 // const words = [
 //   {question: 'Sul Sul', answer: 'Hello', M:1},
@@ -84,18 +92,21 @@ module.exports = SingleLinkedList;
 // function main() {
 //   let sll = new SingleLinkedList();
 //   words.map(word => sll.insertFirst(word));
+
+//   sll.print();
+//   console.log('*********************************************');
+//   insertAt(sll, sll.head, sll.head.M);
 //   // console.log(sll);
 //   sll.print();
-//   console.log('*********************************************');
-//   // console.log(sll.get());
-//   sll.insertAt(sll.get(), sll.get().M);
-//   sll.print();
-//   console.log('*********************************************');
-//   sll.insertAt(sll.get(), sll.get().M);
-//   sll.print();
-//   console.log('*********************************************');
-//   sll.insertAt(sll.get(), sll.get().M);
-//   sll.print();
+//   // // console.log(sll.get());
+//   // sll.insertAt(sll.get(), sll.get().M);
+//   // sll.print();
+//   // console.log('*********************************************');
+//   // sll.insertAt(sll.get(), sll.get().M);
+//   // sll.print();
+//   // console.log('*********************************************');
+//   // sll.insertAt(sll.get(), sll.get().M);
+//   // sll.print();
 
 //   // console.log(sll);
 // }
