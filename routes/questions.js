@@ -76,7 +76,7 @@ router.post('/answer', (req, res, next) => {
     .then(user => {
       // todo: move wordpair -> lastword
       // todo: selections of feedbacks
-      // todo: increment total Attempt, (inCorrect if answer is incorrect).
+      // todo: increment total Attempt, (inCorrect if answer is incorrect)
       const words = user.local.words
       const currentWord = words.head
       let mIndex = words.head.M
