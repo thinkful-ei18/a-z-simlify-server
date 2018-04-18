@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
+const SingleLinkedList = require('../ds/SLL');
 const questions = require('../db/seed/wordbank.json');
 
 function getUsername (request) {
@@ -14,19 +15,35 @@ function getUsername (request) {
 
 router.get('/generate', (req, res, next) => {
 
+
   const username = getUsername(req);
   console.log('found user:', username);
 
-  User.findOne({'local.username': username}, {'local.words': 1})
+  let sll = new SingleLinkedList();
+  User.findOne({'local.username': username})
     .then(user => {
-      const words = user.local.words;
-
-      if (!user) {
-        throw new Error('Could not words for this user');
+      user.local.words = sll;
+      questions.forEach(word => sll.insertFirst(word));
+      return User.findOneAndUpdate({'local.username': username}, {'local.words': user.local.words}, {new: true});
+    })
+    .then(result => {
+      if (!result) {
+        throw new Error('Could not generate words for user');
       }
-      return res.json(words);
+      return res.json(result);
     })
     .catch(err => next(err));
+
+  // User.findOne({'local.username': username}, {'local.words': 1})
+  //   .then(user => {
+  //     const words = user.local.words;
+
+  //     if (!user) {
+  //       throw new Error('Could not words for this user');
+  //     }
+  //     return res.json(words);
+  //   })
+  //   .catch(err => next(err));
 
 
 });
