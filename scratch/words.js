@@ -13,3 +13,9 @@ const words = [
   {question: 'Jowlenin', answer: 'Interesting'},
   {question: 'Kooj', answer: 'Sweet'},
 ];
+
+
+const SLL =[
+  {head: {value: {question: 'Sul Sul', answer: 'Hello'}, next: SLL[1],}},
+  {value: {question: 'Dag Dag', answer: 'Goodbye'}, next: SLL[2]}
+];
