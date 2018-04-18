@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     username: {type: String, unique: true},
     password: {type: String},
     created: {type: Date, default: Date.Now},
-    words: {type: Array, default: null},
+    words: {type: Object, default: null},
     lastWord: {type: Object, default: null}
   },
   google: {
