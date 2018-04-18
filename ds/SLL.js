@@ -21,7 +21,15 @@ class SingleLinkedList {
     let temp = this.head;
     let counter = 0;
 
+    if (M > 9) {
+      M = 10;
+    }
+
     while (counter < M) {
+      if (temp.next === null) {
+        return null;
+      }
+
       temp = temp.next;
       counter++;
     }
@@ -90,7 +98,7 @@ const words = [
   {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
   {question: 'Renato', answer: 'Go away', M:1},
   {question: 'Jowlenin', answer: 'Interesting', M:1},
-  {question: 'Kooj', answer: 'Sweet', M:3},
+  {question: 'Kooj', answer: 'Sweet', M:11},
 ];
 
 function main() {
