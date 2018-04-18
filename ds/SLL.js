@@ -52,3 +52,25 @@ class SingleLinkedList {
   }
 
 }
+
+
+const words = [
+  {question: 'Sul Sul', answer: 'Hello', M:1},
+  {question: 'Dag Dag', answer: 'Goodbye', M:1},
+  {question: 'Hooba Noobie', answer: 'What\'s up?', M:1},
+  {question: 'Litzergam', answer: 'Thank you', M:1},
+  {question: 'Geelfrob', answer: 'See you soon', M:1},
+  {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
+  {question: 'Boobasnot', answer: 'I don\'t like you', M:1},
+  {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
+  {question: 'Renato', answer: 'Go away', M:1},
+  {question: 'Jowlenin', answer: 'Interesting', M:1},
+  {question: 'Kooj', answer: 'Sweet', M:1},
+];
+
+function main() {
+  let sll = new SingleLinkedList();
+  // sll.insertFirst('');
+  console.log('What\'s up?');
+}
+main();
