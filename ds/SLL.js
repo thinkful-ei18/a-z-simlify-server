@@ -57,7 +57,7 @@ class SingleLinkedList {
 const words = [
   {question: 'Sul Sul', answer: 'Hello', M:1},
   {question: 'Dag Dag', answer: 'Goodbye', M:1},
-  {question: 'Hooba Noobie', answer: 'What\'s up?', M:1},
+  {question: 'Hooba Noobie', answer: 'What\'s up', M:1},
   {question: 'Litzergam', answer: 'Thank you', M:1},
   {question: 'Geelfrob', answer: 'See you soon', M:1},
   {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
@@ -68,9 +68,20 @@ const words = [
   {question: 'Kooj', answer: 'Sweet', M:1},
 ];
 
+function prettyPrint() {
+  let current = this.head;
+  let pretty = '';
+  while (current) {
+    pretty += `=> ${current.value} `;
+    current = current.next;
+  }
+  console.log(pretty);
+}
+
+
 function main() {
   let sll = new SingleLinkedList();
-  // sll.insertFirst('');
-  console.log('What\'s up?');
+  words.map(word => sll.insertFirst(word));
+  console.log(sll);
 }
 main();
