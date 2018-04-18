@@ -30,7 +30,6 @@ function getRandomWords(questions) {
 }
 router.get('/generate', (req, res, next) => {
   const username = getUsername(req)
-
   let sll = new SingleLinkedList()
   User.findOne({ 'local.username': username })
     .then(user => {
@@ -51,7 +50,21 @@ router.get('/generate', (req, res, next) => {
 
 router.get('/question', (req, res, next) => {
   // todo : find head return head
-  return res.json('What does ♪ Sul Sul mean?')
+  const username = getUsername(req)
+  User.findOne({ 'local.username': username }).then(user => {
+    if (!user) {
+      const err = new Error('User did not find')
+      err.status = 404
+      return next(err)
+    }
+    const { head } = user.local.words
+    if (!head) {
+      const err = new Error('Please initialize question set')
+      err.status = 404
+      return next(err)
+    }
+    return res.status(200).json({ question: user.local.words.head.question })
+  })
 })
 
 router.post('/answer', (req, res, next) => {
