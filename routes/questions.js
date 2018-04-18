@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
+const questions = require('../db/seed/wordbank.json');
 
 function getUsername (request) {
   const authToken = request.headers.authorization.split(' ')[1];
