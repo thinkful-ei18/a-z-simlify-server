@@ -38,6 +38,15 @@ class SingleLinkedList {
 
     this.head = this.head.next;
     temp.next = new Word(word, temp.next);
+
+    counter = 0;
+    temp = this.head;
+
+    while(counter < 10) {
+      temp = temp.next;
+      counter++;
+    }
+    temp.next = null;
   }
 
   get() {
@@ -56,30 +65,38 @@ class SingleLinkedList {
 
 }
 
+module.exports = SingleLinkedList;
 
-const words = [
-  {question: 'Sul Sul', answer: 'Hello', M:1},
-  {question: 'Hooba Noobie', answer: 'What\'s up', M:1},
-  {question: 'Dag Dag', answer: 'Goodbye', M:1},
-  {question: 'Litzergam', answer: 'Thank you', M:1},
-  {question: 'Geelfrob', answer: 'See you soon', M:1},
-  {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
-  {question: 'Boobasnot', answer: 'I don\'t like you', M:1},
-  {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
-  {question: 'Renato', answer: 'Go away', M:1},
-  {question: 'Jowlenin', answer: 'Interesting', M:1},
-  {question: 'Kooj', answer: 'Sweet', M:11},
-];
+// const words = [
+//   {question: 'Sul Sul', answer: 'Hello', M:1},
+//   {question: 'Hooba Noobie', answer: 'What\'s up', M:1},
+//   {question: 'Dag Dag', answer: 'Goodbye', M:1},
+//   {question: 'Litzergam', answer: 'Thank you', M:1},
+//   {question: 'Geelfrob', answer: 'See you soon', M:1},
+//   {question: 'Whippna Choba Dog', answer: 'This is cool', M:1},
+//   {question: 'Boobasnot', answer: 'I don\'t like you', M:1},
+//   {question: 'Cuh Teekaloo', answer: 'How\'s it going', M:1},
+//   {question: 'Renato', answer: 'Go away', M:19},
+//   {question: 'Jowlenin', answer: 'Interesting', M:1},
+//   {question: 'Kooj', answer: 'Sweet', M:11},
+// ];
 
-function main() {
-  let sll = new SingleLinkedList();
-  words.map(word => sll.insertFirst(word));
-  // console.log(sll);
-  sll.print();
-  console.log('*********************************************');
-  // console.log(sll.get());
-  sll.insertAt(sll.get(), sll.get().M);
-  // console.log(sll);
-  sll.print();
-}
-main();
+// function main() {
+//   let sll = new SingleLinkedList();
+//   words.map(word => sll.insertFirst(word));
+//   // console.log(sll);
+//   sll.print();
+//   console.log('*********************************************');
+//   // console.log(sll.get());
+//   sll.insertAt(sll.get(), sll.get().M);
+//   sll.print();
+//   console.log('*********************************************');
+//   sll.insertAt(sll.get(), sll.get().M);
+//   sll.print();
+//   console.log('*********************************************');
+//   sll.insertAt(sll.get(), sll.get().M);
+//   sll.print();
+
+//   // console.log(sll);
+// }
+// main();
