@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
-const {SingleLinkedList, insertAt, createWord} = require('../ds/SLL');
+const {SingleLinkedList, insertAt, createWord, insertLast} = require('../ds/SLL');
 const questions = require('../db/seed/wordbank.json');
 
 function getUsername (request) {
@@ -49,10 +49,10 @@ router.post('/answer', (req, res, next) => {
 
       if (answer === 'Hello') {
         feedback = 'Correct! ♪ Sul Sul means "Hello!" in Simlish.';
-        words.head.M *= 2;
+        words.head.M = 10;
       } else {
         feedback = 'Try again';
-        words.head.M = 1;
+        words.head.M = 2;
       }
 
       console.log(words);
