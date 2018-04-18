@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
-const SingleLinkedList = require('../ds/SLL');
+const {SingleLinkedList, insertAt, createWord} = require('../ds/SLL');
 const questions = require('../db/seed/wordbank.json');
 
 function getUsername (request) {
@@ -14,10 +14,7 @@ function getUsername (request) {
 }
 
 router.get('/generate', (req, res, next) => {
-
-
   const username = getUsername(req);
-  console.log('found user:', username);
 
   let sll = new SingleLinkedList();
   User.findOne({'local.username': username})
@@ -33,19 +30,6 @@ router.get('/generate', (req, res, next) => {
       return res.json(result);
     })
     .catch(err => next(err));
-
-  // User.findOne({'local.username': username}, {'local.words': 1})
-  //   .then(user => {
-  //     const words = user.local.words;
-
-  //     if (!user) {
-  //       throw new Error('Could not words for this user');
-  //     }
-  //     return res.json(words);
-  //   })
-  //   .catch(err => next(err));
-
-
 });
 
 router.get('/question', (req, res, next) => {
@@ -54,12 +38,33 @@ router.get('/question', (req, res, next) => {
 
 router.post('/answer', (req, res, next) => {
   let { answer } = req.body;
+  const username = getUsername(req);
+  let feedback = null;
 
-  if (answer === 'Hello') {
-    return res.json('Correct! ♪ Sul Sul means "Hello!" in Simlish.');
-  } else {
-    return res.json('Sorry, try again!');
-  }
+  User.findOne({'local.username': username})
+    .then(user => {
+      const words = user.local.words;
+      const currentWord = words.head;
+      let mIndex = words.head.M;
+
+      if (answer === 'Hello') {
+        feedback = 'Correct! ♪ Sul Sul means "Hello!" in Simlish.';
+        words.head.M *= 2;
+      } else {
+        feedback = 'Try again';
+        words.head.M = 1;
+      }
+
+      console.log(words);
+
+      insertAt(words, currentWord, mIndex);
+      return User.findOneAndUpdate({'local.username': username}, {'local.words': words}, {new: true});
+    })
+    .then(result => {
+      return res.json(result);
+    })
+    .catch(err => {next(err);});
+
 });
 
 module.exports = router;
