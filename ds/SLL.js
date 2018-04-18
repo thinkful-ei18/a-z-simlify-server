@@ -3,7 +3,7 @@ class Word {
   constructor(word, next=null) {
     this.question = word.question;
     this.answer = word.answer;
-    this.m = word.m;
+    this.M = word.M;
     this.next = next;
   }
 }
@@ -51,6 +51,16 @@ class SingleLinkedList {
     return currentWord;
   }
 
+  print() {
+    let current = this.head;
+    let pretty = '';
+    while (current) {
+      pretty += `=> Question: ${current.question}, Answer:${current.answer}, M:${current.M} `;
+      current = current.next;
+    }
+    console.log(pretty);
+  }
+
 }
 
 
@@ -68,20 +78,9 @@ const words = [
   {question: 'Kooj', answer: 'Sweet', M:1},
 ];
 
-function prettyPrint() {
-  let current = this.head;
-  let pretty = '';
-  while (current) {
-    pretty += `=> ${current.value} `;
-    current = current.next;
-  }
-  console.log(pretty);
-}
-
-
 function main() {
   let sll = new SingleLinkedList();
   words.map(word => sll.insertFirst(word));
-  console.log(sll);
+  sll.print();
 }
 main();
