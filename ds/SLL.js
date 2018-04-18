@@ -17,6 +17,10 @@ class SingleLinkedList {
     this.head = new Word (word, this.head);
   }
 
+  get() {
+    return this.head; // return first question/answer pair
+  }
+
   push(word, M) {
     if (M <= 0) {
       return null;
