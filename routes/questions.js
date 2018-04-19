@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const jwtDecode = require('jwt-decode')
-const { SingleLinkedList, insertAt, createWord, insertLast } = require('../ds/SLL')
+const { SingleLinkedList, insertAt, createWord, insertLast, convertToArray } = require('../ds/SLL')
 const questions = require('../db/seed/wordbank.json')
 
 function getUsername(request) {
@@ -23,6 +23,7 @@ function getRandomWords(questions) {
     index = Math.floor(Math.random() * max)
     wordPair = questions[index]
     if (!indexArr.includes(index)) {
+      indexArr.push(index)
       result.push(wordPair)
     }
   }
@@ -73,13 +74,13 @@ router.get('/question', (req, res, next) => {
       err.status = 404
       return next(err)
     }
+    let question
     const { head } = user.local.words
     if (!head) {
-      const err = new Error('Please initialize question set')
-      err.status = 404
-      return next(err)
+      question = null
     }
-    return res.status(200).json({ question: user.local.words.head.question })
+    question = user.local.words.head.question
+    return res.status(200).json({ question })
   })
 })
 
@@ -91,7 +92,6 @@ router.post('/answer', (req, res, next) => {
   User.findOne({ 'local.username': username })
     .then(user => {
       // todo: selections of feedbacks
-      // todo: increment total Attempt, (inCorrect if answer is incorrect)
 
       const words = user.local.words
       const currentWord = words.head
@@ -102,9 +102,10 @@ router.post('/answer', (req, res, next) => {
         words.head.M *= 2
       } else {
         feedback = getRandomBadFeedback(currentWord)
+        words.head.inCorrect += 1
         words.head.M = 2
       }
-
+      words.head.totalAttempt += 1
       insertAt(words, currentWord, mIndex)
       return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
     })
@@ -118,5 +119,21 @@ router.post('/answer', (req, res, next) => {
 //todo:
 // router.get('/report')
 // res.json(result)
+router.get('/report', (req, res, next) => {
+  const userName = getUsername(req)
+  let report = null
+  User.findOne({ 'local.username': userName })
+    .then(user => {
+      if (!user) {
+        const err = new Error('no such user')
+        err.status = 400
+        return next(err)
+      }
+      const words = user.local.words
+      report = convertToArray(words)
+      res.json(report)
+    })
+    .catch(err => next(err))
+})
 
 module.exports = router

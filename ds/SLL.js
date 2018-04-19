@@ -29,15 +29,26 @@ class SingleLinkedList {
     console.log(pretty)
   }
 }
-
+function convertToArray(words) {
+  let node = words.head
+  const reports = []
+  let report
+  while (node.next !== null) {
+    const { question, totalAttempt, inCorrect, answer } = node
+    report = { question, totalAttempt, inCorrect, answer }
+    reports.push(report)
+    node = node.next
+  }
+  return reports
+}
 function createWord(word, next = null) {
   return {
     question: word.question,
     answer: word.answer,
     M: word.M,
     next: next,
-    totalAttempt: word.totalAttempt,
-    inCorrect: word.inCorrect
+    totalAttempt: word.totalAttempt ? word.totalAttempt : 0,
+    inCorrect: word.inCorrect ? word.inCorrect : 0
   }
 }
 
@@ -81,7 +92,7 @@ function insertLast(words, word) {
   node.next = createWord(word)
 }
 
-module.exports = { SingleLinkedList, insertAt, createWord, insertLast }
+module.exports = { SingleLinkedList, insertAt, createWord, insertLast, convertToArray }
 
 const words = [
   { question: 'Sul Sul', answer: 'Hello', M: 1 },
