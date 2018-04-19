@@ -29,6 +29,16 @@ class SingleLinkedList {
     console.log(pretty)
   }
 }
+function getSize(words) {
+  let count = 0
+  let node = words.head
+  while (node.next !== null) {
+    count++
+    node = node.next
+  }
+  return count
+}
+
 function convertToArray(words) {
   let node = words.head
   const reports = []
@@ -55,8 +65,8 @@ function createWord(word, next = null) {
 function insertAt(words, word, M) {
   let temp = words.head
   let counter = 0
-
-  if (M > 9) {
+  console.log(getSize(words))
+  if (M > getSize(words)) {
     insertLast(words, word)
   }
 
@@ -75,7 +85,7 @@ function insertAt(words, word, M) {
   counter = 0
   temp = words.head
 
-  while (counter < 9) {
+  while (counter < getSize(words)) {
     temp = temp.next
     counter++
   }
@@ -92,7 +102,7 @@ function insertLast(words, word) {
   node.next = createWord(word)
 }
 
-module.exports = { SingleLinkedList, insertAt, createWord, insertLast, convertToArray }
+module.exports = { SingleLinkedList, insertAt, createWord, insertLast, convertToArray, getSize }
 
 const words = [
   { question: 'Sul Sul', answer: 'Hello', M: 1 },
