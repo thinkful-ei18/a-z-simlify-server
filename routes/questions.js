@@ -74,13 +74,13 @@ router.get('/question', (req, res, next) => {
       err.status = 404
       return next(err)
     }
+    let question
     const { head } = user.local.words
     if (!head) {
-      const err = new Error('Please initialize question set')
-      err.status = 404
-      return next(err)
+      question = null
     }
-    return res.status(200).json({ question: user.local.words.head.question })
+    question = user.local.words.head.question
+    return res.status(200).json({ question })
   })
 })
 
@@ -92,7 +92,6 @@ router.post('/answer', (req, res, next) => {
   User.findOne({ 'local.username': username })
     .then(user => {
       // todo: selections of feedbacks
-      // todo: increment total Attempt, (inCorrect if answer is incorrect)
 
       const words = user.local.words
       const currentWord = words.head
@@ -103,12 +102,12 @@ router.post('/answer', (req, res, next) => {
         words.head.M *= 2
       } else {
         feedback = getRandomBadFeedback(currentWord)
-        user.local.inCorrect += 1
+        words.head.inCorrect += 1
         words.head.M = 2
       }
-      user.local.totalAttempt += 1
+      words.head.totalAttempt += 1
       insertAt(words, currentWord, mIndex)
-      return User.findOneAndUpdate({ 'local.username': username }, { local: user.local }, { new: true })
+      return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
     })
     .then(result => {
       return res.json(result)

@@ -36,8 +36,8 @@ function createWord(word, next = null) {
     answer: word.answer,
     M: word.M,
     next: next,
-    totalAttempt: word.totalAttempt,
-    inCorrect: word.inCorrect
+    totalAttempt: word.totalAttempt ? word.totalAttempt : 0,
+    inCorrect: word.inCorrect ? word.inCorrect : 0
   }
 }
 
