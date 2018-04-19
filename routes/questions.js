@@ -42,9 +42,10 @@ function getRandomGoodFeedback(currentWord) {
 function getRandomBadFeedback(currentWord) {
   const wordbank = [
     `Wrong! It's ${currentWord.answer}`,
-    `Repeat after me ${currentWord.answer}!`,
+    `Repeat after me: ${currentWord.answer}!`,
     `Try harder, it's ${currentWord.answer}`
   ]
+  return wordbank[Math.floor(Math.random() * 3)]
 }
 router.get('/generate', (req, res, next) => {
   const username = getUsername(req)
@@ -105,6 +106,7 @@ router.post('/answer', (req, res, next) => {
         words.head.inCorrect += 1
         words.head.M = 2
       }
+      console.log(feedback)
       words.head.totalAttempt += 1
       insertAt(words, currentWord, mIndex)
       return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
