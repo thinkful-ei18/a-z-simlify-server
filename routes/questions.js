@@ -109,8 +109,8 @@ router.post('/answer', (req, res, next) => {
       insertAt(words, currentWord, mIndex)
       return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
     })
-    .then(result => {
-      return res.json(result)
+    .then(() => {
+      return res.json(feedback)
     })
     .catch(err => {
       next(err)
