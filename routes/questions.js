@@ -102,11 +102,12 @@ router.post('/answer', (req, res, next) => {
         words.head.M *= 2
       } else {
         feedback = getRandomBadFeedback(currentWord)
+        user.local.inCorrect += 1
         words.head.M = 2
       }
-
+      user.local.totalAttempt += 1
       insertAt(words, currentWord, mIndex)
-      return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
+      return User.findOneAndUpdate({ 'local.username': username }, { local: user.local }, { new: true })
     })
     .then(result => {
       return res.json(result)
