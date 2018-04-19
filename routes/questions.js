@@ -23,6 +23,7 @@ function getRandomWords(questions) {
     index = Math.floor(Math.random() * max)
     wordPair = questions[index]
     if (!indexArr.includes(index)) {
+      indexArr.push(index)
       result.push(wordPair)
     }
   }
