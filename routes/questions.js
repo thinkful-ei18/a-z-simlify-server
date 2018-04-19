@@ -28,6 +28,23 @@ function getRandomWords(questions) {
   }
   return result
 }
+
+function getRandomGoodFeedback(currentWord) {
+  const wordbank = [
+    `Correct! ${currentWord.question} means "${currentWord.answer}" in Simlish.`,
+    `${currentWord.answer} is correct`,
+    `${currentWord.answer} means "${currentWord.question}" in English`
+  ]
+  return wordbank[Math.floor(Math.random() * 3)]
+}
+
+function getRandomBadFeedback(currentWord) {
+  const wordbank = [
+    `Wrong! It's ${currentWord.answer}`,
+    `Repeat after me ${currentWord.answer}!`,
+    `Try harder, it's ${currentWord.answer}`
+  ]
+}
 router.get('/generate', (req, res, next) => {
   const username = getUsername(req)
   let sll = new SingleLinkedList()
@@ -49,7 +66,6 @@ router.get('/generate', (req, res, next) => {
 })
 
 router.get('/question', (req, res, next) => {
-  // todo : find head return head
   const username = getUsername(req)
   User.findOne({ 'local.username': username }).then(user => {
     if (!user) {
@@ -74,26 +90,26 @@ router.post('/answer', (req, res, next) => {
 
   User.findOne({ 'local.username': username })
     .then(user => {
-      // todo: move wordpair -> lastword
       // todo: selections of feedbacks
       // todo: increment total Attempt, (inCorrect if answer is incorrect)
+
       const words = user.local.words
       const currentWord = words.head
       let mIndex = words.head.M
 
-      if (answer === 'Hello') {
-        feedback = 'Correct! ♪ Sul Sul means "Hello!" in Simlish.'
-        words.head.M = 10
+      if (answer === currentWord.answer) {
+        feedback = getRandomGoodFeedback(currentWord)
+        words.head.M *= 2
       } else {
-        feedback = 'Try again'
+        feedback = getRandomBadFeedback(currentWord)
         words.head.M = 2
       }
 
       insertAt(words, currentWord, mIndex)
       return User.findOneAndUpdate({ 'local.username': username }, { 'local.words': words }, { new: true })
     })
-    .then(() => {
-      return res.json(feedback)
+    .then(result => {
+      return res.json(result)
     })
     .catch(err => {
       next(err)
