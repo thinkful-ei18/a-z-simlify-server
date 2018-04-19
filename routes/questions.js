@@ -9,7 +9,7 @@ const questions = require('../db/seed/wordbank.json')
 
 function getUsername(request) {
   const authToken = request.headers.authorization.split(' ')[1]
-  const currentUser = jwtDecode(authToken).user.local.username
+  const currentUser = jwtDecode(authToken).user.username
   return currentUser
 }
 // return random 10 wordpairs
