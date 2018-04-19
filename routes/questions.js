@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const jwtDecode = require('jwt-decode')
-const { SingleLinkedList, insertAt, createWord, insertLast } = require('../ds/SLL')
+const { SingleLinkedList, insertAt, createWord, insertLast, convertToArray } = require('../ds/SLL')
 const questions = require('../db/seed/wordbank.json')
 
 function getUsername(request) {
@@ -119,5 +119,21 @@ router.post('/answer', (req, res, next) => {
 //todo:
 // router.get('/report')
 // res.json(result)
+router.get('/report', (req, res, next) => {
+  const userName = getUsername(req)
+  let report = null
+  User.findOne({ 'local.username': userName })
+    .then(user => {
+      if (!user) {
+        const err = new Error('no such user')
+        err.status = 400
+        return next(err)
+      }
+      const words = user.local.words
+      report = convertToArray(words)
+      res.json(report)
+    })
+    .catch(err => next(err))
+})
 
 module.exports = router
